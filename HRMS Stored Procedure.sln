@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRMS Stored Procedure", "HRMS Stored Procedure\HRMS Stored Procedure.csproj", "{EACB05B1-1744-4250-A2C9-C82C0F1EE2AD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EACB05B1-1744-4250-A2C9-C82C0F1EE2AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EACB05B1-1744-4250-A2C9-C82C0F1EE2AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EACB05B1-1744-4250-A2C9-C82C0F1EE2AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EACB05B1-1744-4250-A2C9-C82C0F1EE2AD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CB6C6F25-8158-437F-B25E-FD22B3418EDF}
+	EndGlobalSection
+EndGlobal
