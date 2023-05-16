@@ -26,67 +26,74 @@ namespace HRMS_Stored_Procedure.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] AddApplicationUserDTO appDTO)
         {
-            if (appDTO == null)
-                BadRequest("No resource found");
-
-            if (ModelState.IsValid)
+            try
             {
-                var emp = new ApplicationUser()
-                {
-                    FirstName = appDTO.FirstName,
-                    MiddleName = appDTO.MiddleName,
-                    LastName = appDTO.LastName,
-                    FullName = appDTO.FirstName + " " + appDTO.MiddleName + " " + appDTO.LastName,
-                    Gender = appDTO.Gender,
-                    DateOfBirth = appDTO.DateOfBirth,
-                    Phone = appDTO.Phone,
-                    Email = appDTO.Email,
-                    UserName = appDTO.Email,
-                    EmployeeType = appDTO.EmployeeType,
-                    /*SSSNumber = appDTO.SSSNumber,
-                    PagIbigId = appDTO.PagIbigId,
-                    PhilHealthId = appDTO.PhilHealthId,*/
-                    Street = appDTO.Street,
-                    Barangay = appDTO.Barangay,
-                    City = appDTO.City,
-                    State = appDTO.State,
-                    PostalCode = appDTO.PostalCode,
-                    DateHired = appDTO.DateHired,
-                    ActiveStatus = true,
-                    DeleteStatus = false
-                };
+                if (appDTO == null)
+                    BadRequest("No resource found");
 
-                var result = await _userManager.CreateAsync(emp, appDTO.Password);
-
-                if (!result.Succeeded)
+                if (ModelState.IsValid)
                 {
-                    foreach (var error in result.Errors)
+                    var emp = new ApplicationUser()
                     {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
-                    return BadRequest(ModelState);
-                }
+                        FirstName = appDTO.FirstName,
+                        MiddleName = appDTO.MiddleName,
+                        LastName = appDTO.LastName,
+                        FullName = appDTO.FirstName + " " + appDTO.MiddleName + " " + appDTO.LastName,
+                        Gender = appDTO.Gender,
+                        DateOfBirth = appDTO.DateOfBirth,
+                        Phone = appDTO.Phone,
+                        Email = appDTO.Email,
+                        UserName = appDTO.Email,
+                        EmployeeType = appDTO.EmployeeType,
+                        /*SSSNumber = appDTO.SSSNumber,
+                        PagIbigId = appDTO.PagIbigId,
+                        PhilHealthId = appDTO.PhilHealthId,*/
+                        Street = appDTO.Street,
+                        Barangay = appDTO.Barangay,
+                        City = appDTO.City,
+                        State = appDTO.State,
+                        PostalCode = appDTO.PostalCode,
+                        DateHired = appDTO.DateHired,
+                        ActiveStatus = true,
+                        DeleteStatus = false
+                    };
 
-                var role = _roleManager.Roles.FirstOrDefault(r => r.Name == "Employee");
+                    var result = await _userManager.CreateAsync(emp, appDTO.Password);
 
-                if (role != null)
-                {
-                    var roleResult = await _userManager.AddToRoleAsync(emp, role.Name);
-
-                    if (!roleResult.Succeeded)
+                    if (!result.Succeeded)
                     {
-                        foreach (var error in roleResult.Errors)
+                        foreach (var error in result.Errors)
                         {
                             ModelState.AddModelError(string.Empty, error.Description);
                         }
                         return BadRequest(ModelState);
                     }
+
+                    var role = _roleManager.Roles.FirstOrDefault(r => r.Name == "Employee");
+
+                    if (role != null)
+                    {
+                        var roleResult = await _userManager.AddToRoleAsync(emp, role.Name);
+
+                        if (!roleResult.Succeeded)
+                        {
+                            foreach (var error in roleResult.Errors)
+                            {
+                                ModelState.AddModelError(string.Empty, error.Description);
+                            }
+                            return BadRequest(ModelState);
+                        }
+                    }
+                    return Ok();
                 }
-                return Ok();
+                else
+                {
+                    return BadRequest(ModelState);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest(ModelState);
+                return BadRequest("Error, Please Try Again!\n\n" + ex);
             }
         }
 
@@ -107,71 +114,92 @@ namespace HRMS_Stored_Procedure.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] string id)
         {
-            var employee = await _userManager.FindByIdAsync(id);
-            if (employee != null)
+            try
             {
-                return Ok(employee);
+                var employee = await _userManager.FindByIdAsync(id);
+                if (employee != null)
+                {
+                    return Ok(employee);
+                }
+                return NotFound("No Records Found!");
             }
-           return NotFound("No Records Found!");
+            catch (Exception ex)
+            {
+                return BadRequest("Error, Please Try Again!\n\n" + ex);
+            }
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromRoute] string id, [FromBody] EditApplicationUserDTO editDTO)
         {
-            var modeltoupdate = await _userManager.FindByIdAsync(id);
-            if (modeltoupdate != null)
+            try
             {
-                if (ModelState.IsValid)
+                var modeltoupdate = await _userManager.FindByIdAsync(id);
+                if (modeltoupdate != null)
                 {
-                    modeltoupdate.Id = id;
-                    modeltoupdate.FirstName = editDTO.FirstName;
-                    modeltoupdate.MiddleName = editDTO.MiddleName;
-                    modeltoupdate.LastName = editDTO.LastName;
-                    modeltoupdate.FullName = editDTO.FirstName + " " + editDTO.MiddleName + " " + editDTO.LastName;
-                    modeltoupdate.Gender = editDTO.Gender;
-                    modeltoupdate.DateOfBirth = editDTO.DateOfBirth;
-                    modeltoupdate.Phone = editDTO.Phone;
-                    modeltoupdate.EmployeeType = editDTO.EmployeeType;
-                    /* modeltoupdate.SSSNumber = editDTO.SSSNumber;
-                     modeltoupdate.PagIbigId = editDTO.PagIbigId;
-                     modeltoupdate.PhilHealthId = editDTO.PhilHealthId;*/
-                    modeltoupdate.Street = editDTO.Street;
-                    modeltoupdate.Barangay = editDTO.Barangay;
-                    modeltoupdate.City = editDTO.City;
-                    modeltoupdate.State = editDTO.State;
-                    modeltoupdate.PostalCode = editDTO.PostalCode;
-                    modeltoupdate.DateHired = editDTO.DateHired;
-                    modeltoupdate.ActiveStatus = editDTO.ActiveStatus;
-                    var result = await _userManager.UpdateAsync(modeltoupdate);
-
-                    if (result.Succeeded)
+                    if (ModelState.IsValid)
                     {
-                        return Ok("Update Successfully!");
+                        modeltoupdate.Id = id;
+                        modeltoupdate.FirstName = editDTO.FirstName;
+                        modeltoupdate.MiddleName = editDTO.MiddleName;
+                        modeltoupdate.LastName = editDTO.LastName;
+                        modeltoupdate.FullName = editDTO.FirstName + " " + editDTO.MiddleName + " " + editDTO.LastName;
+                        modeltoupdate.Gender = editDTO.Gender;
+                        modeltoupdate.DateOfBirth = editDTO.DateOfBirth;
+                        modeltoupdate.Phone = editDTO.Phone;
+                        modeltoupdate.EmployeeType = editDTO.EmployeeType;
+                        /* modeltoupdate.SSSNumber = editDTO.SSSNumber;
+                         modeltoupdate.PagIbigId = editDTO.PagIbigId;
+                         modeltoupdate.PhilHealthId = editDTO.PhilHealthId;*/
+                        modeltoupdate.Street = editDTO.Street;
+                        modeltoupdate.Barangay = editDTO.Barangay;
+                        modeltoupdate.City = editDTO.City;
+                        modeltoupdate.State = editDTO.State;
+                        modeltoupdate.PostalCode = editDTO.PostalCode;
+                        modeltoupdate.DateHired = editDTO.DateHired;
+                        modeltoupdate.ActiveStatus = editDTO.ActiveStatus;
+                        var result = await _userManager.UpdateAsync(modeltoupdate);
+
+                        if (result.Succeeded)
+                        {
+                            return Ok("Update Successfully!");
+                        }
+                        return BadRequest("No resource");
                     }
-                    return BadRequest("No resource");
+                    else
+                    {
+                        return BadRequest(ModelState);
+                    }
                 }
-                else
-                {
-                    return BadRequest(ModelState);
-                }
+                return NotFound("No Record Found!");
             }
-            return NotFound("No Record Found!");
+            catch (Exception ex)
+            {
+                return BadRequest("Error, Please Try Again!\n\n" + ex);
+            }
         }
 
         [HttpDelete]
         public async Task<IActionResult> Delete(string id)
         {
-            var user = await _userManager.FindByIdAsync(id);
-            if (user != null)
+            try
             {
-                var result = await _userManager.DeleteAsync(user);
-                if (result.Succeeded)
+                var user = await _userManager.FindByIdAsync(id);
+                if (user != null)
                 {
-                    return Ok(user.FullName + " is Delete Successfully!");
+                    var result = await _userManager.DeleteAsync(user);
+                    if (result.Succeeded)
+                    {
+                        return Ok(user.FullName + " is Delete Successfully!");
+                    }
+                    return BadRequest("Not succeeded!");
                 }
-                return BadRequest("Not succeeded!");
+                return NotFound("No Record Found!");
             }
-            return NotFound("No Record Found!");
+            catch (Exception ex)
+            {
+                return BadRequest("Error, Please Try Again!\n\n" + ex);
+            }
         }
     }
 }
