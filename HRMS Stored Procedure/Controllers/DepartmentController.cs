@@ -1,4 +1,5 @@
 ﻿using HRMS_Stored_Procedure.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
@@ -6,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HRMS_Stored_Procedure.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     [Route("api/[controller]")]
     [ApiController]
     public class DepartmentController : ControllerBase
@@ -34,7 +36,6 @@ namespace HRMS_Stored_Procedure.Controllers
             {
                 return BadRequest("Error, Please Try Again!");
             }
-            
         }
 
         [HttpGet]
@@ -49,7 +50,6 @@ namespace HRMS_Stored_Procedure.Controllers
             {
                 return BadRequest("Error, Please Try Again!");
             }
-            
         }
 
         [HttpGet("{id}")]
@@ -67,7 +67,6 @@ namespace HRMS_Stored_Procedure.Controllers
             {
                 return BadRequest("Error, Please Try Again!");
             }
-           
         }
 
         [HttpPut]
@@ -84,8 +83,6 @@ namespace HRMS_Stored_Procedure.Controllers
             {
                 return BadRequest("Error, Please Try Again!");
             }
-            
-
         }
         [HttpDelete]
         public async Task<IActionResult> DeleteById(int id)
@@ -100,8 +97,7 @@ namespace HRMS_Stored_Procedure.Controllers
             catch (Exception ex)
             {
                 return BadRequest("Error, Please Try Again!");
-            }
-            
+            }  
         }
     }
 }

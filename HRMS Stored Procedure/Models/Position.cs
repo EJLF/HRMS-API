@@ -11,5 +11,12 @@ namespace HRMS_Stored_Procedure.Models
         [MinLength(2)]
         [DisplayName("Position Name")]
         public string? PositionName { get; set; }
+        public Position() { }
+
+        public Position(int id, string name)
+        {
+            PosId = id;
+            PositionName = name;
+        }
     }
 }

@@ -11,5 +11,13 @@ namespace HRMS_Stored_Procedure.Models
         [MinLength(2)]
         [DisplayName("Department Name")]
         public string? DeptName { get; set; }
+
+        public Department() { }
+
+        public Department(int deptId, string deptName)
+        {
+            DeptId = deptId;
+            DeptName = deptName;
+        }
     }
 }

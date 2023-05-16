@@ -49,6 +49,11 @@ namespace HRMS_Stored_Procedure.Data
 
             base.OnConfiguring(optionsBuilder);
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.SeedDefaultData();
+            base.OnModelCreating(modelBuilder);
+        }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Position> Positions { get; set; }
         public DbSet<DepartmentPosition> DepartmentPositions { get; set; }
