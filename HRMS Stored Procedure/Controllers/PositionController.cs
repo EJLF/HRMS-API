@@ -8,22 +8,22 @@ namespace HRMS_Stored_Procedure.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DepartmentController : ControllerBase
+    public class PositionController : ControllerBase
     {
         HRMSDbContext _context;
 
-        public DepartmentController(HRMSDbContext context)
+        public PositionController(HRMSDbContext context)
         {
             _context = context;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(string newDepartmentName)
+        public async Task<IActionResult> Create(string PositionName)
         {
             var parameters = new[] {
-                new SqlParameter("@DeptName", newDepartmentName)
+                new SqlParameter("@posName", PositionName)
                 };
-            var result = await _context.Database.ExecuteSqlRawAsync("EXEC AddDepartment @DeptName", parameters);
+            var result = await _context.Database.ExecuteSqlRawAsync("EXEC AddPosition @posName", parameters);
             if (result > 0)
                 return Ok();
             return BadRequest();
@@ -32,14 +32,14 @@ namespace HRMS_Stored_Procedure.Controllers
         [HttpGet]
         public async Task<IActionResult> List()
         {
-            var alldept = await _context.Departments.FromSqlRaw("EXEC getalldepartment").ToListAsync();
-            return Ok(alldept);
+            var result = await _context.Positions.FromSqlRaw("EXEC getallpositions").ToListAsync();
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var department = _context.Departments.FromSqlRaw("EXEC GetDepartmentById {0}", id).AsEnumerable().FirstOrDefault();
+            var department = _context.Positions.FromSqlRaw("EXEC GetPositionById {0}", id).AsEnumerable().FirstOrDefault();
 
             if (department == null)
                 return NotFound();
@@ -47,9 +47,9 @@ namespace HRMS_Stored_Procedure.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update(int id, string newDeptName)
+        public async Task<IActionResult> Update(int id, string PositionName)
         {
-            var result = await _context.Database.ExecuteSqlRawAsync("EXEC UpdateDepartmentById {0}, {1}", id ,newDeptName);
+            var result = await _context.Database.ExecuteSqlRawAsync("EXEC UpdatePositionById {0}, {1}", id, PositionName);
             if (result > 0)
                 return Ok();
             return NotFound();
@@ -58,7 +58,7 @@ namespace HRMS_Stored_Procedure.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteById(int id)
         {
-            var result = await _context.Database.ExecuteSqlRawAsync("EXEC DeleteDepartmentById {0}", id);
+            var result = await _context.Database.ExecuteSqlRawAsync("EXEC DeletePositionById {0}", id);
             if (result > 0)
                 return Ok();
             return NotFound();

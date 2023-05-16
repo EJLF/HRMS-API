@@ -4,23 +4,23 @@
 
 namespace HRMS_Stored_Procedure.Migrations
 {
-    public partial class adddepartment : Migration
+    public partial class deleteposition : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            var sp = @"CREATE PROCEDURE AddDepartment
-                            @DeptName VARCHAR(50)
+            var sp = @"CREATE PROCEDURE DeletePositionById
+                            @posId INT
                         AS
                         BEGIN
-                            INSERT INTO Departments (DeptName)
-                            VALUES (@DeptName);
+                            DELETE FROM Positions
+                            WHERE PosId = @posId;
                         END";
             migrationBuilder.Sql(sp);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            var sp = @"DROP PROCEDURE AddDepartment";
+            var sp = @"DROP PROCEDURE DeletePositionById";
             migrationBuilder.Sql(sp);
         }
     }

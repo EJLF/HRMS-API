@@ -7,11 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddDbContext<HRMSDbContext>();
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(opt =>
 {
-    opt.SwaggerDoc("v1", new OpenApiInfo { Title = "HRMSAPI", Version = "v1" });
+    opt.SwaggerDoc("v1", new OpenApiInfo { Title = "HRMS API Stored Procedure", Version = "v1" });
 
     // JWT Bearer 
     opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
