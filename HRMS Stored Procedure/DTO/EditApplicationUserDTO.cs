@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Xml.Linq;
 
-namespace HRMS_Stored_Procedure.Models
+namespace HRMS_Stored_Procedure.DTO
 {
-    public class ApplicationUser:IdentityUser
+    public class EditApplicationUserDTO
     {
         [Required]
         [MinLength(2)]
@@ -19,8 +18,6 @@ namespace HRMS_Stored_Procedure.Models
         [MinLength(2)]
         [Required]
         public string LastName { get; set; }
-        [DisplayName("Full Name")]
-        public string? FullName { get; set; }
         [Required]
         public string Gender { get; set; }
         [Required]
@@ -28,25 +25,13 @@ namespace HRMS_Stored_Procedure.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         [DisplayName("Date of Birth")]
         public DateTime DateOfBirth { get; set; }
+
         [Required]
         [RegularExpression("(09)[0-9]{9}", ErrorMessage = "This is not a valid phone number")]
         [DisplayName("Phone Number")]
         public string Phone { get; set; }
-        //Account UserName
-        [Required]
-        [EmailAddress]
-        [DisplayName("Email Address")]
-        public string Email { get; set; }
 
         // Foreign Key
-        [DisplayName("Department")]
-        public int? DepartmentId { get; set; }
-        [ForeignKey("DepartmentId")]
-        public Department? Department { get; set; }
-        [DisplayName("Position")]
-        public int? PositionId { get; set; }
-        [ForeignKey("PositionId")]
-        public Position? Position { get; set; }
 
         public string? EmployeeType { get; set; }
 
@@ -81,6 +66,5 @@ namespace HRMS_Stored_Procedure.Models
 
         public bool ActiveStatus { get; set; }
 
-        public bool DeleteStatus { get; set; }
     }
 }
