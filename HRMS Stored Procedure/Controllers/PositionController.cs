@@ -39,11 +39,11 @@ namespace HRMS_Stored_Procedure.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var department = _context.Positions.FromSqlRaw("EXEC GetPositionById {0}", id).AsEnumerable().FirstOrDefault();
+            var position = _context.Positions.FromSqlRaw("EXEC GetPositionById {0}", id).AsEnumerable().FirstOrDefault();
 
-            if (department == null)
+            if (position == null)
                 return NotFound();
-            return Ok(department);
+            return Ok(position);
         }
 
         [HttpPut]

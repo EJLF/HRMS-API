@@ -51,5 +51,6 @@ namespace HRMS_Stored_Procedure.Data
         }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Position> Positions { get; set; }
+        public DbSet<DepartmentPosition> DepartmentPositions { get; set; }
     }
 }
