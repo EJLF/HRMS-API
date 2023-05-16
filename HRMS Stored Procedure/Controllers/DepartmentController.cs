@@ -16,6 +16,25 @@ namespace HRMS_Stored_Procedure.Controllers
         {
             _context = context;
         }
+        [HttpPost]
+        public async Task<IActionResult> Create(string newDepartmentName)
+        {
+            var parameters = new[] {
+                new SqlParameter("@DeptName", newDepartmentName)
+                };
+
+            var result = await _context.Database.ExecuteSqlRawAsync("EXEC AddDepartment @DeptName", parameters);
+
+            if (result > 0)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpGet]
         public async Task<IActionResult> List()
         {
