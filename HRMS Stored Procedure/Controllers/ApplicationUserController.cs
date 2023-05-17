@@ -93,7 +93,7 @@ namespace HRMS_Stored_Procedure.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest("Error, Please Try Again!\n\n" + ex);
+                return BadRequest("Error, Please Try Again!\n\n" + ex.Message);
             }
         }
 
@@ -107,7 +107,7 @@ namespace HRMS_Stored_Procedure.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest("Error, Please Try Again!\n\n"+ ex);
+                return BadRequest("Error, Please Try Again!\n\n" + ex.Message);
             }
         }
 
@@ -125,7 +125,7 @@ namespace HRMS_Stored_Procedure.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest("Error, Please Try Again!\n\n" + ex);
+                return BadRequest("Error, Please Try Again!\n\n" + ex.Message);
             }
         }
 
@@ -158,6 +158,7 @@ namespace HRMS_Stored_Procedure.Controllers
                         modeltoupdate.PostalCode = editDTO.PostalCode;
                         modeltoupdate.DateHired = editDTO.DateHired;
                         modeltoupdate.ActiveStatus = editDTO.ActiveStatus;
+
                         var result = await _userManager.UpdateAsync(modeltoupdate);
 
                         if (result.Succeeded)
@@ -175,7 +176,7 @@ namespace HRMS_Stored_Procedure.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest("Error, Please Try Again!\n\n" + ex);
+                return BadRequest("Error, Please Try Again!\n\n" + ex.Message);
             }
         }
 
@@ -198,7 +199,7 @@ namespace HRMS_Stored_Procedure.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest("Error, Please Try Again!\n\n" + ex);
+                return BadRequest("Error, Please Try Again!\n\n" + ex.Message);
             }
         }
     }

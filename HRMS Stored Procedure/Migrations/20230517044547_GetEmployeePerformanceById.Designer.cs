@@ -4,6 +4,7 @@ using HRMS_Stored_Procedure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRMS_Stored_Procedure.Migrations
 {
     [DbContext(typeof(HRMSDbContext))]
-    partial class HRMSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230517044547_GetEmployeePerformanceById")]
+    partial class GetEmployeePerformanceById
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -158,14 +160,14 @@ namespace HRMS_Stored_Procedure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ba420359-3872-4767-9cb4-74a34173fb18",
+                            Id = "6455b9dd-b7dd-4c05-94d3-22568cf1fb3e",
                             AccessFailedCount = 0,
                             ActiveStatus = true,
                             Barangay = "Barangay",
                             City = "City",
-                            ConcurrencyStamp = "edf17a0d-0051-405a-8eaa-cb4f21b5a6b3",
-                            DateHired = new DateTime(2023, 5, 17, 16, 52, 9, 463, DateTimeKind.Local).AddTicks(4422),
-                            DateOfBirth = new DateTime(2023, 5, 17, 16, 52, 9, 463, DateTimeKind.Local).AddTicks(4397),
+                            ConcurrencyStamp = "5ebd5c7d-9f26-4ea3-b382-26b20e4fe225",
+                            DateHired = new DateTime(2023, 5, 17, 12, 45, 46, 677, DateTimeKind.Local).AddTicks(421),
+                            DateOfBirth = new DateTime(2023, 5, 17, 12, 45, 46, 677, DateTimeKind.Local).AddTicks(405),
                             DeleteStatus = false,
                             DepartmentId = 1,
                             Email = "administrator@pjli.com",
@@ -178,7 +180,7 @@ namespace HRMS_Stored_Procedure.Migrations
                             MiddleName = "is",
                             NormalizedEmail = "ADMINISTRATOR@PJLI.COM",
                             NormalizedUserName = "ADMINISTRATOR@PJLI.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMxj0uTlXk4UQZ4xa0Kn+VEvVpOn47OXnWUt6oXU9uQAdnzQU2lNWRErGBRjv80m0g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGHzuoboWxysXM5Z/gOGXXt0Ts0gIWcpvoysZzUciVJCRtQgRBW/C3etyGYlGqVF4A==",
                             Phone = "09236253623",
                             PhoneNumberConfirmed = false,
                             PositionId = 1,
@@ -348,22 +350,22 @@ namespace HRMS_Stored_Procedure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c4f6d4cd-cc63-4a18-92d2-087c6aaf27a0",
-                            ConcurrencyStamp = "19a72589-1b6b-4f2c-b03f-fefae9feed16",
+                            Id = "5acfb00c-3280-4b84-a7be-8141769dc313",
+                            ConcurrencyStamp = "08e8e13a-0c11-495f-b261-3fc3ac1ff67e",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "b686a135-10be-4681-aa8e-3e96f261d810",
-                            ConcurrencyStamp = "5ba9308c-d55e-4161-a028-4b51d4be7ade",
+                            Id = "1c3569b8-cbfa-4bae-816f-4544fab7d3da",
+                            ConcurrencyStamp = "e50b19d5-e308-401f-bb2e-4c1b067dcbfb",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         },
                         new
                         {
-                            Id = "f3f4eee8-ebc0-4319-a385-b29d049fbbc2",
-                            ConcurrencyStamp = "31f51c6d-0973-4f53-ae0a-7a2dc381f2d8",
+                            Id = "f6290676-e770-4464-b925-457a9c5671b0",
+                            ConcurrencyStamp = "79030983-453b-4356-abaa-f2ccd6064d75",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
@@ -458,8 +460,8 @@ namespace HRMS_Stored_Procedure.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "ba420359-3872-4767-9cb4-74a34173fb18",
-                            RoleId = "c4f6d4cd-cc63-4a18-92d2-087c6aaf27a0"
+                            UserId = "6455b9dd-b7dd-4c05-94d3-22568cf1fb3e",
+                            RoleId = "5acfb00c-3280-4b84-a7be-8141769dc313"
                         });
                 });
 

@@ -4,6 +4,7 @@ using HRMS_Stored_Procedure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRMS_Stored_Procedure.Migrations
 {
     [DbContext(typeof(HRMSDbContext))]
-    partial class HRMSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230517012135_EmployeePerformance")]
+    partial class EmployeePerformance
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -158,14 +160,14 @@ namespace HRMS_Stored_Procedure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ba420359-3872-4767-9cb4-74a34173fb18",
+                            Id = "eb873458-a5cc-4247-81b9-3b2094dd0c56",
                             AccessFailedCount = 0,
                             ActiveStatus = true,
                             Barangay = "Barangay",
                             City = "City",
-                            ConcurrencyStamp = "edf17a0d-0051-405a-8eaa-cb4f21b5a6b3",
-                            DateHired = new DateTime(2023, 5, 17, 16, 52, 9, 463, DateTimeKind.Local).AddTicks(4422),
-                            DateOfBirth = new DateTime(2023, 5, 17, 16, 52, 9, 463, DateTimeKind.Local).AddTicks(4397),
+                            ConcurrencyStamp = "775f82d5-c031-429e-90e3-08420777a1f4",
+                            DateHired = new DateTime(2023, 5, 17, 9, 21, 34, 955, DateTimeKind.Local).AddTicks(725),
+                            DateOfBirth = new DateTime(2023, 5, 17, 9, 21, 34, 955, DateTimeKind.Local).AddTicks(712),
                             DeleteStatus = false,
                             DepartmentId = 1,
                             Email = "administrator@pjli.com",
@@ -178,7 +180,7 @@ namespace HRMS_Stored_Procedure.Migrations
                             MiddleName = "is",
                             NormalizedEmail = "ADMINISTRATOR@PJLI.COM",
                             NormalizedUserName = "ADMINISTRATOR@PJLI.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMxj0uTlXk4UQZ4xa0Kn+VEvVpOn47OXnWUt6oXU9uQAdnzQU2lNWRErGBRjv80m0g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMzreHPsPfJbmfrcMNWrjWvkot3gGM6sCVriKrnIcW5wEYh3sFlzHgmU0pepsdv/AQ==",
                             Phone = "09236253623",
                             PhoneNumberConfirmed = false,
                             PositionId = 1,
@@ -348,22 +350,22 @@ namespace HRMS_Stored_Procedure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c4f6d4cd-cc63-4a18-92d2-087c6aaf27a0",
-                            ConcurrencyStamp = "19a72589-1b6b-4f2c-b03f-fefae9feed16",
+                            Id = "cb0e59a1-90a3-47fb-82a5-24cfe44f354b",
+                            ConcurrencyStamp = "d47bf0db-67f0-4ebc-ad2a-91c9ec6fa31f",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "b686a135-10be-4681-aa8e-3e96f261d810",
-                            ConcurrencyStamp = "5ba9308c-d55e-4161-a028-4b51d4be7ade",
+                            Id = "1e659726-0f2c-4d59-9bfa-f31de2ac82f9",
+                            ConcurrencyStamp = "62527939-49e3-4bfe-8cd1-c2209987972b",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         },
                         new
                         {
-                            Id = "f3f4eee8-ebc0-4319-a385-b29d049fbbc2",
-                            ConcurrencyStamp = "31f51c6d-0973-4f53-ae0a-7a2dc381f2d8",
+                            Id = "990483ad-cf10-47cc-a4d1-087721126099",
+                            ConcurrencyStamp = "d44648b2-103d-49a8-af77-e015bfa04e1a",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
@@ -458,8 +460,8 @@ namespace HRMS_Stored_Procedure.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "ba420359-3872-4767-9cb4-74a34173fb18",
-                            RoleId = "c4f6d4cd-cc63-4a18-92d2-087c6aaf27a0"
+                            UserId = "eb873458-a5cc-4247-81b9-3b2094dd0c56",
+                            RoleId = "cb0e59a1-90a3-47fb-82a5-24cfe44f354b"
                         });
                 });
 
@@ -518,19 +520,19 @@ namespace HRMS_Stored_Procedure.Migrations
 
             modelBuilder.Entity("HRMS_Stored_Procedure.Models.EmployeePerformance", b =>
                 {
-                    b.HasOne("HRMS_Stored_Procedure.Models.ApplicationUser", "ReviewerName")
+                    b.HasOne("HRMS_Stored_Procedure.Models.ApplicationUser", "Reviewer")
                         .WithMany()
                         .HasForeignKey("ReviewBy")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HRMS_Stored_Procedure.Models.ApplicationUser", "EmployeeName")
+                    b.HasOne("HRMS_Stored_Procedure.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserID");
 
-                    b.Navigation("EmployeeName");
+                    b.Navigation("Reviewer");
 
-                    b.Navigation("ReviewerName");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

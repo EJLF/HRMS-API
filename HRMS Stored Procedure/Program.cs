@@ -10,8 +10,7 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<HRMSDbContext>();
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-    .AddEntityFrameworkStores<HRMSDbContext>();
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<HRMSDbContext>();
 builder.Services.Configure<IdentityOptions>(options =>
 {
     options.Password.RequiredLength = 1;
@@ -23,7 +22,6 @@ builder.Services.Configure<IdentityOptions>(options =>
 });
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 
 var issuer = builder.Configuration["JWT:Issuer"];
@@ -49,6 +47,7 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+//Setup Security
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(opt =>
 {
@@ -104,8 +103,6 @@ builder.Services.AddSwaggerGen(opt =>
         }
     });
 });
-
-
 
 var app = builder.Build();
 

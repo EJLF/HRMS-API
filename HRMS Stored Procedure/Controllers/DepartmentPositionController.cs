@@ -33,7 +33,7 @@ namespace HRMS_Stored_Procedure.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest("Check Department Id and Position Id if Existed");
+                return BadRequest("Error, Please Try Again!\n\n" + ex.Message);
             }      
         }
         [HttpGet("{id}")]
@@ -63,7 +63,7 @@ namespace HRMS_Stored_Procedure.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest("Error");
+                return BadRequest("Error, Please Try Again!\n\n" + ex.Message);
             }
         }
 
@@ -102,7 +102,7 @@ namespace HRMS_Stored_Procedure.Controllers
             }
             catch(Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest("Error, Please Try Again!\n\n" + ex.Message);
             }
         }
         [HttpPut]
@@ -117,7 +117,7 @@ namespace HRMS_Stored_Procedure.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest("Error, Please Try Again!\n\n" + ex.Message);
             } 
         }
         [HttpDelete]
@@ -132,7 +132,7 @@ namespace HRMS_Stored_Procedure.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest("Error, Please Try Again!\n\n" + ex.Message);
             }  
         }
     }

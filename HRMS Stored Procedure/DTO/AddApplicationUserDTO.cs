@@ -11,16 +11,20 @@ namespace HRMS_Stored_Procedure.DTO
         [Required]
         [MinLength(2)]
         [DisplayName("First Name")]
+        [RegularExpression(@"^[a-zA-ZñÑ]+$", ErrorMessage = "This is not a valid Name. Special characters are not allowed.")]
         public string FirstName { get; set; }
+        [Required]
         [DisplayName("Middle Name")]
         [MinLength(1)]
-        [Required]
+        [RegularExpression(@"^[a-zA-ZñÑ]+$", ErrorMessage = "This is not a valid Name. Special characters are not allowed.")]
         public string MiddleName { get; set; }
+        [Required]
         [DisplayName("Last Name")]
         [MinLength(2)]
-        [Required]
+        [RegularExpression(@"^[a-zA-ZñÑ]+$", ErrorMessage = "This is not a valid Name. Special characters are not allowed.")]
         public string LastName { get; set; }
         [Required]
+        [RegularExpression(@"^[a-zA-ZñÑ]+$", ErrorMessage = "This is not a valid Name. Special characters are not allowed.")]
         public string Gender { get; set; }
         [Required]
         [DataType(DataType.Date)]
@@ -32,9 +36,7 @@ namespace HRMS_Stored_Procedure.DTO
         [RegularExpression("(09)[0-9]{9}", ErrorMessage = "This is not a valid phone number")]
         [DisplayName("Phone Number")]
         public string Phone { get; set; }
-
-        // Foreign Key
-
+        [RegularExpression(@"^[a-zA-ZñÑ]+$", ErrorMessage = "This is not a valid Name. Special characters are not allowed.")]
         public string? EmployeeType { get; set; }
 
         //Benefits
@@ -51,14 +53,19 @@ namespace HRMS_Stored_Procedure.DTO
 
         //Addrress
         [Required]
+        [RegularExpression(@"^[a-zA-ZñÑ]+$", ErrorMessage = "This is not a valid Name. Special characters are not allowed.")]
         public string Street { get; set; }
         [Required]
+        [RegularExpression(@"^[a-zA-ZñÑ]+$", ErrorMessage = "This is not a valid Name. Special characters are not allowed.")]
         public string Barangay { get; set; }
         [Required]
+        [RegularExpression(@"^[a-zA-ZñÑ]+$", ErrorMessage = "This is not a valid Name. Special characters are not allowed.")]
         public string City { get; set; }
         [Required]
+        [RegularExpression(@"^[a-zA-ZñÑ]+$", ErrorMessage = "This is not a valid Name. Special characters are not allowed.")]
         public string State { get; set; }
         [Required]
+        [RegularExpression(@"^[a-zA-ZñÑ]+$", ErrorMessage = "This is not a valid Name. Special characters are not allowed.")]
         public string PostalCode { get; set; }
 
         //Account Status
