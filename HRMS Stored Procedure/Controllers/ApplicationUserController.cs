@@ -24,7 +24,7 @@ namespace HRMS_Stored_Procedure.Controllers
         }
        
         [HttpPost]
-        public async Task<IActionResult> Create(string FirstName, string MiddleName, string LastName, string Gender, DateTime DateOfBirth, string Phone, string Email, string EmployeeType, 
+        public async Task<IActionResult> Create(string FirstName, string MiddleName, string LastName, string Gender, DateTime DateOfBirth, string Phone, string Email,int DepartmenttId,int PosistionId, string EmployeeType, 
                                                 string Street, string Barangay, string City, string State, string PostalCode, DateTime DateHired, bool activeStatus, bool deleteStatus, string Password)
         {
             try
@@ -42,10 +42,9 @@ namespace HRMS_Stored_Procedure.Controllers
                         Phone = Phone,
                         Email = Email,
                         UserName = Email,
+                        DepartmentId = DepartmenttId,
+                        PositionId = PosistionId,
                         EmployeeType = EmployeeType,
-                        /*SSSNumber = SSSNumber,
-                        PagIbigId = PagIbigId,
-                        PhilHealthId = PhilHealthId,*/
                         Street = Street,
                         Barangay = Barangay,
                         City = City,
