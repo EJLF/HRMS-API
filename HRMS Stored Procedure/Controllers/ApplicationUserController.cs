@@ -1,6 +1,7 @@
 ﻿using HRMS_Stored_Procedure.Data;
 using HRMS_Stored_Procedure.DTO;
 using HRMS_Stored_Procedure.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HRMS_Stored_Procedure.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     [Route("api/[controller]")]
     [ApiController]
     public class ApplicationUserController : ControllerBase
@@ -291,6 +293,41 @@ namespace HRMS_Stored_Procedure.Controllers
             catch (Exception ex)
             {
                 return BadRequest("Error, Please Try Again!\n\n" + ex.Message);
+            }
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> ActiveStatus(string accountId, bool activeStatus)
+        {
+            try
+            {
+                var modeltoupdate = await _userManager.FindByIdAsync(accountId);
+                if (modeltoupdate != null)
+                {
+                    if (ModelState.IsValid)
+                    {
+                        modeltoupdate.Id = accountId;
+                        
+                        modeltoupdate.ActiveStatus = activeStatus;
+
+                        var result = await _userManager.UpdateAsync(modeltoupdate);
+
+                        if (result.Succeeded)
+                        {
+                            return Ok("Update Successfully!");
+                        }
+                       return BadRequest("No resource");
+                    }
+                    else
+                    {
+                        return BadRequest(ModelState);
+                    }
+                }
+                return NotFound("No Record Found!");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Error, Please Try Again! " + ex.Message);
             }
         }
     }

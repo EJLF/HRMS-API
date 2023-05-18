@@ -66,5 +66,16 @@ namespace HRMS_Stored_Procedure.Controllers
             }
             return BadRequest(ModelState);
         }
+
+        [HttpPost]
+        [Route("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync(); // Sign out the user
+
+            // Return a response
+            return Ok(new { message = "Logout successful" });
+        }
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using HRMS_Stored_Procedure.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
@@ -7,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HRMS_Stored_Procedure.Controllers
 {
-   // [Authorize(Roles = "Employee")]
+    [Authorize(Roles = "Administrator")]
     [Route("api/[controller]")]
     [ApiController]
     public class PositionController : ControllerBase

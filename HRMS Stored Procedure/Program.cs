@@ -103,6 +103,28 @@ builder.Services.AddSwaggerGen(opt =>
         }
     });
 });
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.SetIsOriginAllowed(origin =>
+        {
+            // Exclude the specific URL from CORS
+            if (origin == "http://localhost:5260")
+            {
+                return false;
+            }
+
+            return true;
+        })
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
+});
+
+
 
 var app = builder.Build();
 
@@ -113,9 +135,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+
+//app.UseCors("AllowOnlyLocalhost");
 app.Automigrate();
-app.UseAuthentication();
 app.UseRouting();
+
+app.UseAuthentication();
 app.UseAuthorization();
 app.UseMiddleware<ApiAuthMiddleware>();
 app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
