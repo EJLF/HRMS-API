@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HRMS_Stored_Procedure.Controllers
 {
-    [Authorize(Roles = "Employee")]
+   // [Authorize(Roles = "Employee")]
     [Route("api/[controller]")]
     [ApiController]
     public class PositionController : ControllerBase

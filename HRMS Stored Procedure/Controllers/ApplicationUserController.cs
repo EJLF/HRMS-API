@@ -24,41 +24,39 @@ namespace HRMS_Stored_Procedure.Controllers
         }
        
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] AddApplicationUserDTO appDTO)
+        public async Task<IActionResult> Create(string FirstName, string MiddleName, string LastName, string Gender, DateTime DateOfBirth, string Phone, string Email, string EmployeeType, 
+                                                string Street, string Barangay, string City, string State, string PostalCode, DateTime DateHired, bool activeStatus, bool deleteStatus, string Password)
         {
             try
             {
-                if (appDTO == null)
-                    BadRequest("No resource found");
-
                 if (ModelState.IsValid)
                 {
                     var emp = new ApplicationUser()
                     {
-                        FirstName = appDTO.FirstName,
-                        MiddleName = appDTO.MiddleName,
-                        LastName = appDTO.LastName,
-                        FullName = appDTO.FirstName + " " + appDTO.MiddleName + " " + appDTO.LastName,
-                        Gender = appDTO.Gender,
-                        DateOfBirth = appDTO.DateOfBirth,
-                        Phone = appDTO.Phone,
-                        Email = appDTO.Email,
-                        UserName = appDTO.Email,
-                        EmployeeType = appDTO.EmployeeType,
-                        /*SSSNumber = appDTO.SSSNumber,
-                        PagIbigId = appDTO.PagIbigId,
-                        PhilHealthId = appDTO.PhilHealthId,*/
-                        Street = appDTO.Street,
-                        Barangay = appDTO.Barangay,
-                        City = appDTO.City,
-                        State = appDTO.State,
-                        PostalCode = appDTO.PostalCode,
-                        DateHired = appDTO.DateHired,
-                        ActiveStatus = true,
-                        DeleteStatus = false
+                        FirstName = FirstName,
+                        MiddleName = MiddleName,
+                        LastName = LastName,
+                        FullName = FirstName + " " + MiddleName + " " + LastName,
+                        Gender = Gender,
+                        DateOfBirth = DateOfBirth,
+                        Phone = Phone,
+                        Email = Email,
+                        UserName = Email,
+                        EmployeeType = EmployeeType,
+                        /*SSSNumber = SSSNumber,
+                        PagIbigId = PagIbigId,
+                        PhilHealthId = PhilHealthId,*/
+                        Street = Street,
+                        Barangay = Barangay,
+                        City = City,
+                        State = State,
+                        PostalCode = PostalCode,
+                        DateHired = DateHired,
+                        ActiveStatus = activeStatus,
+                        DeleteStatus = deleteStatus
                     };
 
-                    var result = await _userManager.CreateAsync(emp, appDTO.Password);
+                    var result = await _userManager.CreateAsync(emp, Password);
 
                     if (!result.Succeeded)
                     {
@@ -129,35 +127,34 @@ namespace HRMS_Stored_Procedure.Controllers
             }
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update([FromRoute] string id, [FromBody] EditApplicationUserDTO editDTO)
+        [HttpPut("{accountId}")]
+        public async Task<IActionResult> Update(string accountId, string FirstName, string MiddleName, string LastName, string Gender, DateTime DateOfBirth, string Phone, string Email, string EmployeeType,
+                                                string Street, string Barangay, string City, string State, string PostalCode, DateTime DateHired, bool activeStatus, bool deleteStatus)
         {
             try
             {
-                var modeltoupdate = await _userManager.FindByIdAsync(id);
+                var modeltoupdate = await _userManager.FindByIdAsync(accountId);
                 if (modeltoupdate != null)
                 {
                     if (ModelState.IsValid)
                     {
-                        modeltoupdate.Id = id;
-                        modeltoupdate.FirstName = editDTO.FirstName;
-                        modeltoupdate.MiddleName = editDTO.MiddleName;
-                        modeltoupdate.LastName = editDTO.LastName;
-                        modeltoupdate.FullName = editDTO.FirstName + " " + editDTO.MiddleName + " " + editDTO.LastName;
-                        modeltoupdate.Gender = editDTO.Gender;
-                        modeltoupdate.DateOfBirth = editDTO.DateOfBirth;
-                        modeltoupdate.Phone = editDTO.Phone;
-                        modeltoupdate.EmployeeType = editDTO.EmployeeType;
-                        /* modeltoupdate.SSSNumber = editDTO.SSSNumber;
-                         modeltoupdate.PagIbigId = editDTO.PagIbigId;
-                         modeltoupdate.PhilHealthId = editDTO.PhilHealthId;*/
-                        modeltoupdate.Street = editDTO.Street;
-                        modeltoupdate.Barangay = editDTO.Barangay;
-                        modeltoupdate.City = editDTO.City;
-                        modeltoupdate.State = editDTO.State;
-                        modeltoupdate.PostalCode = editDTO.PostalCode;
-                        modeltoupdate.DateHired = editDTO.DateHired;
-                        modeltoupdate.ActiveStatus = editDTO.ActiveStatus;
+                        modeltoupdate.Id = accountId;
+                        modeltoupdate.FirstName = FirstName;
+                        modeltoupdate.MiddleName = MiddleName;
+                        modeltoupdate.LastName = LastName;
+                        modeltoupdate.FullName = FirstName + " " + MiddleName + " " + LastName;
+                        modeltoupdate.Gender = Gender;
+                        modeltoupdate.DateOfBirth = DateOfBirth;
+                        modeltoupdate.Phone = Phone;
+                        modeltoupdate.EmployeeType = EmployeeType;
+                        modeltoupdate.Street = Street;
+                        modeltoupdate.Barangay = Barangay;
+                        modeltoupdate.City = City;
+                        modeltoupdate.State = State;
+                        modeltoupdate.PostalCode = PostalCode;
+                        modeltoupdate.DateHired = DateHired;
+                        modeltoupdate.ActiveStatus = activeStatus;
+                        modeltoupdate.DeleteStatus = deleteStatus;
 
                         var result = await _userManager.UpdateAsync(modeltoupdate);
 
