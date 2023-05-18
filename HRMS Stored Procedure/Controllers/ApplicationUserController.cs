@@ -99,7 +99,67 @@ namespace HRMS_Stored_Procedure.Controllers
         {
             try
             {
-                var result = await _userManager.Users.ToListAsync();
+                var applicationUsers = await _userManager.Users.ToListAsync();
+
+                var departmentIds = applicationUsers.Select(dp => dp.DepartmentId).Distinct();
+                var departments = await _context.Departments.Where(d => departmentIds.Contains(d.DeptId)).ToListAsync();
+
+                var positionIds = applicationUsers.Select(dp => dp.PositionId).Distinct();
+                var positions = await _context.Positions.Where(p => positionIds.Contains(p.PosId)).ToListAsync();
+
+                var result = applicationUsers
+                    .Join(departments, dp => dp.DepartmentId, d => d.DeptId, (dp, d) => new
+                    {
+                        dp.Id,
+                        FirstName = dp.FirstName,
+                        MiddleName = dp.MiddleName,
+                        LastName = dp.LastName,
+                        FullName = dp.FirstName + " " + dp.MiddleName + " " + dp.LastName,
+                        Gender = dp.Gender,
+                        DateOfBirth = dp.DateOfBirth,
+                        Phone = dp.Phone,
+                        Email = dp.Email,
+                        UserName = dp.Email,
+                        DepartmentId = dp.DepartmentId,
+                        PositionId = dp.PositionId,
+                        EmployeeType = dp.EmployeeType,
+                        Street = dp.Street,
+                        Barangay = dp.Barangay,
+                        City = dp.City,
+                        State = dp.State,
+                        PostalCode = dp.PostalCode,
+                        DateHired = dp.DateHired,
+                        ActiveStatus = dp.ActiveStatus,
+                        DeleteStatus = dp.DeleteStatus,
+                        DepartmentName = d.DeptName,
+                    })
+                    .Join(positions, dp => dp.PositionId, p => p.PosId, (dp, p) => new
+                    {
+                        dp.Id,
+                        dp.FirstName,
+                        dp.MiddleName,
+                        dp.LastName,
+                        dp.FullName,
+                        dp.Gender,
+                        dp.DateOfBirth,
+                        dp.Phone,
+                        dp.Email,
+                        dp.UserName,
+                        dp.DepartmentId,
+                        dp.DepartmentName,
+                        dp.PositionId,
+                        PositionName = p.PositionName,
+                        dp.EmployeeType,
+                        dp.Street,
+                        dp.Barangay,
+                        dp.City,
+                        dp.State,
+                        dp.PostalCode,
+                        dp.DateHired,
+                        dp.ActiveStatus,
+                        dp.DeleteStatus
+                    })
+                    .ToList();
                 return Ok(result);
             }
             catch (Exception ex)
@@ -113,11 +173,44 @@ namespace HRMS_Stored_Procedure.Controllers
         {
             try
             {
-                var employee = await _userManager.FindByIdAsync(id);
-                if (employee != null)
+                var applicationUser = await _userManager.FindByIdAsync(id);
+
+                var department = await _context.Departments.FirstOrDefaultAsync(d => d.DeptId == applicationUser.DepartmentId);
+
+                var position = await _context.Positions.FirstOrDefaultAsync(p => p.PosId == applicationUser.PositionId);
+
+
+                if (applicationUser != null && department != null && position != null)
                 {
-                    return Ok(employee);
+                    var result = new
+                    {
+                        applicationUser.Id,
+                        applicationUser.FirstName,
+                        applicationUser.MiddleName,
+                        applicationUser.LastName,
+                        FullName = applicationUser.FirstName + " " + applicationUser.MiddleName + " " + applicationUser.LastName,
+                        applicationUser.Gender,
+                        applicationUser.DateOfBirth,
+                        applicationUser.Phone,
+                        applicationUser.Email,
+                        applicationUser.UserName,
+                        applicationUser.DepartmentId,
+                        DepartmentName = department.DeptName,
+                        applicationUser.PositionId,
+                        PositionName = position.PositionName,
+                        applicationUser.EmployeeType,
+                        applicationUser.Street,
+                        applicationUser.Barangay,
+                        applicationUser.City,
+                        applicationUser.State,
+                        applicationUser.PostalCode,
+                        applicationUser.DateHired,
+                        applicationUser.ActiveStatus,
+                        applicationUser.DeleteStatus
+                    };
+                    return Ok(result);
                 }
+                    
                 return NotFound("No Records Found!");
             }
             catch (Exception ex)
@@ -127,7 +220,7 @@ namespace HRMS_Stored_Procedure.Controllers
         }
 
         [HttpPut("{accountId}")]
-        public async Task<IActionResult> Update(string accountId, string FirstName, string MiddleName, string LastName, string Gender, DateTime DateOfBirth, string Phone, string Email, string EmployeeType,
+        public async Task<IActionResult> Update(string accountId, string FirstName, string MiddleName, string LastName, string Gender, DateTime DateOfBirth, string Phone,int DepartmentId, int PositionId, string EmployeeType,
                                                 string Street, string Barangay, string City, string State, string PostalCode, DateTime DateHired, bool activeStatus, bool deleteStatus)
         {
             try
@@ -145,6 +238,8 @@ namespace HRMS_Stored_Procedure.Controllers
                         modeltoupdate.Gender = Gender;
                         modeltoupdate.DateOfBirth = DateOfBirth;
                         modeltoupdate.Phone = Phone;
+                        modeltoupdate.DepartmentId = DepartmentId;
+                        modeltoupdate.PositionId = PositionId;
                         modeltoupdate.EmployeeType = EmployeeType;
                         modeltoupdate.Street = Street;
                         modeltoupdate.Barangay = Barangay;
