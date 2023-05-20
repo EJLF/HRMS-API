@@ -54,7 +54,7 @@ namespace HRMS_Stored_Procedure.Controllers
                         PostalCode = PostalCode,
                         DateHired = DateHired,
                         ActiveStatus = activeStatus,
-                        DeleteStatus = deleteStatus
+                        DeleteStatus = false
                     };
 
                     var result = await _userManager.CreateAsync(emp, Password);
@@ -317,6 +317,42 @@ namespace HRMS_Stored_Procedure.Controllers
                             return Ok("Update Successfully!");
                         }
                        return BadRequest("No resource");
+                    }
+                    else
+                    {
+                        return BadRequest(ModelState);
+                    }
+                }
+                return NotFound("No Record Found!");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Error, Please Try Again! " + ex.Message);
+            }
+        }
+
+        [HttpPut("api/DeleteStatus")]
+        public async Task<IActionResult> DeleteStatus(string accountId)
+        {
+
+            try
+            {
+                var modeltoupdate = await _userManager.FindByIdAsync(accountId);
+                if (modeltoupdate != null)
+                {
+                    if (ModelState.IsValid)
+                    {
+                        modeltoupdate.Id = accountId;
+
+                        modeltoupdate.DeleteStatus = true;
+
+                        var result = await _userManager.UpdateAsync(modeltoupdate);
+
+                        if (result.Succeeded)
+                        {
+                            return Ok("Update Successfully!");
+                        }
+                        return BadRequest("No resource");
                     }
                     else
                     {

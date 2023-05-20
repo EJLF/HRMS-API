@@ -97,7 +97,7 @@ namespace HRMS_Stored_Procedure.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest("Error, Please Try Again!");
+                return BadRequest("Error, Please Try Again! " + ex.Message);
             }  
         }
     }

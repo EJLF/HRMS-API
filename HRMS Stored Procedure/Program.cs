@@ -103,30 +103,24 @@ builder.Services.AddSwaggerGen(opt =>
         }
     });
 });
+
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
-builder.Services.AddCors(options =>
+builder.Services.AddCors(opt =>
 {
-    options.AddDefaultPolicy(builder =>
+    opt.AddPolicy(name: MyAllowSpecificOrigins, policy =>
     {
-        builder.SetIsOriginAllowed(origin =>
-        {
-            // Exclude the specific URL from CORS
-            if (origin == "http://localhost:5260")
-            {
-                return false;
-            }
-
-            return true;
-        })
-        .AllowAnyHeader()
-        .AllowAnyMethod();
+        //policy.AllowAnyOrigin()
+        policy.WithOrigins("http://localhost:5260")
+        .AllowAnyHeader();
+        //.AllowAnyMethod();
+        //.AllowCredentials();
     });
 });
 
-
-
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -136,8 +130,7 @@ if (app.Environment.IsDevelopment())
 }
 
 
-
-//app.UseCors("AllowOnlyLocalhost");
+app.UseCors(MyAllowSpecificOrigins);
 app.Automigrate();
 app.UseRouting();
 
