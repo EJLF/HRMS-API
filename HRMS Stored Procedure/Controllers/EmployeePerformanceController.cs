@@ -66,7 +66,7 @@ namespace HRMS_Stored_Procedure.Controllers
                          EmployeeName = employees.FullName,
                          About = employeePerformance.About,
                          PerformanceReview = employeePerformance.PerformanceReview,
-                         ReviewBy = employeePerformance.ReviewBy,
+                         ReviewerID = employeePerformance.ReviewBy,
                          ReviewerName = reviewer.FullName,
                          DateReview = employeePerformance.DateReview,
                          Status = employeePerformance.Status,
@@ -103,20 +103,20 @@ namespace HRMS_Stored_Procedure.Controllers
                         EmployeeName = e.FullName,
                         About = ep.About,
                         PerformanceReview = ep.PerformanceReview,
-                        ReviewBy = ep.ReviewBy,
+                        reviewerName = ep.ReviewBy,
                         DateReview = ep.DateReview,
                         Status = ep.Status, 
                         DeleteStatus = ep.DeleteStatus
                 
                     })
-                    .Join(reviewers, ep => ep.ReviewBy, r => r.Id, (ep, r) => new
+                    .Join(reviewers, ep => ep.reviewerName, r => r.Id, (ep, r) => new
                     {
                         ep.No,
                         UserID = ep.UserID,
                         EmployeeName = ep.EmployeeName,
                         About = ep.About,
                         PerformanceReview = ep.PerformanceReview,
-                        ReviewBy = r.FullName,
+                        reviewerName = r.FullName,
                         DateReview = ep.DateReview,
                         Status = ep.Status,
                         DeleteStatus = ep.DeleteStatus
