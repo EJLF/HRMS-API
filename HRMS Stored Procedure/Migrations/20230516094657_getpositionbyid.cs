@@ -8,7 +8,7 @@ namespace HRMS_Stored_Procedure.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            var sp = @"CREATE PROCEDURE GetPositionById
+            var sp = @"CREATE PROCEDURE SP_GetPositionById
                         @posId INT
                     AS
                     BEGIN
@@ -21,7 +21,7 @@ namespace HRMS_Stored_Procedure.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            var sp = @"DROP PROCEDURE GetPositionById";
+            var sp = @"DROP PROCEDURE SP_GetPositionById";
             migrationBuilder.Sql(sp);
         }
     }

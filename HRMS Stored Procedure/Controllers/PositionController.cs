@@ -28,7 +28,7 @@ namespace HRMS_Stored_Procedure.Controllers
                 var parameters = new[] {
                 new SqlParameter("@posName", PositionName)
                 };
-                var result = await _context.Database.ExecuteSqlRawAsync("EXEC AddPosition @posName", parameters);
+                var result = await _context.Database.ExecuteSqlRawAsync("EXEC SP_AddPosition @posName", parameters);
                 if (result > 0)
                     return Ok("Position Save Successful!");
                 return BadRequest();
@@ -44,7 +44,7 @@ namespace HRMS_Stored_Procedure.Controllers
         {
             try
             {
-                var result = await _context.Positions.FromSqlRaw("EXEC getallpositions").ToListAsync();
+                var result = await _context.Positions.FromSqlRaw("EXEC SP_GetAllPositions").ToListAsync();
                 return Ok(result);
             }
             catch (Exception ex)
@@ -58,7 +58,7 @@ namespace HRMS_Stored_Procedure.Controllers
         {
             try
             {
-                var position = _context.Positions.FromSqlRaw("EXEC GetPositionById {0}", id).AsEnumerable().FirstOrDefault();
+                var position = _context.Positions.FromSqlRaw("EXEC SP_GetPositionById {0}", id).AsEnumerable().FirstOrDefault();
 
                 if (position == null)
                     return NotFound();
@@ -75,7 +75,7 @@ namespace HRMS_Stored_Procedure.Controllers
         {
             try
             {
-                var result = await _context.Database.ExecuteSqlRawAsync("EXEC UpdatePositionById {0}, {1}", id, PositionName);
+                var result = await _context.Database.ExecuteSqlRawAsync("EXEC SP_UpdatePositionById {0}, {1}", id, PositionName);
                 if (result > 0)
                     return Ok();
                 return NotFound();
@@ -90,7 +90,7 @@ namespace HRMS_Stored_Procedure.Controllers
         {
             try
             {
-                var result = await _context.Database.ExecuteSqlRawAsync("EXEC DeletePositionById {0}", id);
+                var result = await _context.Database.ExecuteSqlRawAsync("EXEC SP_DeletePositionById {0}", id);
                 if (result > 0)
                     return Ok();
                 return NotFound();

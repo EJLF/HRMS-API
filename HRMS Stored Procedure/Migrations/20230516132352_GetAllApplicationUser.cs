@@ -8,7 +8,7 @@ namespace HRMS_Stored_Procedure.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            var sp = @" CREATE PROCEDURE GetAllApplicationUser
+            var sp = @" CREATE PROCEDURE SP_GetAllApplicationUser
             AS
             BEGIN
                 SELECT* from AspNetUsers;
@@ -18,7 +18,7 @@ namespace HRMS_Stored_Procedure.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            var sp = @"DROP PROCEDURE getalldepartment";
+            var sp = @"DROP PROCEDURE SP_GetAllApplicationUser";
             migrationBuilder.Sql(sp);
         }
     }

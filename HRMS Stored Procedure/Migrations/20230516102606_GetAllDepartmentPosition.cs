@@ -8,7 +8,7 @@ namespace HRMS_Stored_Procedure.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            var sp = @" CREATE PROCEDURE GetAllDepartmentPosition
+            var sp = @" CREATE PROCEDURE SP_GetAllDepartmentPosition
             AS
             BEGIN
                 SELECT* from DepartmentPositions;
@@ -18,7 +18,7 @@ namespace HRMS_Stored_Procedure.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            var sp = @"DROP PROCEDURE GetAllDepartmentPosition";
+            var sp = @"DROP PROCEDURE SP_GetAllDepartmentPosition";
             migrationBuilder.Sql(sp);
         }
     }

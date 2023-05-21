@@ -28,7 +28,7 @@ namespace HRMS_Stored_Procedure.Controllers
                 var parameters = new[] {
                 new SqlParameter("@DeptName", newDepartmentName)
                 };
-                var result = await _context.Database.ExecuteSqlRawAsync("EXEC AddDepartment @DeptName", parameters);
+                var result = await _context.Database.ExecuteSqlRawAsync("EXEC SP_AddDepartment @DeptName", parameters);
                 if (result > 0)
                     return Ok("Department Save Successful!");
                 return BadRequest("Can't Create Department");
@@ -44,7 +44,7 @@ namespace HRMS_Stored_Procedure.Controllers
         {
             try
             {
-                var result = await _context.Departments.FromSqlRaw("EXEC getalldepartment").ToListAsync();
+                var result = await _context.Departments.FromSqlRaw("EXEC SP_GetAllDepartment").ToListAsync();
                 return Ok(result);
             }
             catch (Exception ex)
@@ -58,7 +58,7 @@ namespace HRMS_Stored_Procedure.Controllers
         {
             try
             {
-                var department = _context.Departments.FromSqlRaw("EXEC GetDepartmentById {0}", id).AsEnumerable().FirstOrDefault();
+                var department = _context.Departments.FromSqlRaw("EXEC SP_GetDepartmentById {0}", id).AsEnumerable().FirstOrDefault();
 
                 if (department == null)
                     return NotFound();
@@ -75,7 +75,7 @@ namespace HRMS_Stored_Procedure.Controllers
         {
             try
             {
-                var result = await _context.Database.ExecuteSqlRawAsync("EXEC UpdateDepartmentById {0}, {1}", id, newDeptName);
+                var result = await _context.Database.ExecuteSqlRawAsync("EXEC SP_UpdateDepartmentById {0}, {1}", id, newDeptName);
                 if (result > 0)
                     return Ok();
                 return NotFound();
@@ -90,7 +90,7 @@ namespace HRMS_Stored_Procedure.Controllers
         {
             try
             {
-                var result = await _context.Database.ExecuteSqlRawAsync("EXEC DeleteDepartmentById {0}", id);
+                var result = await _context.Database.ExecuteSqlRawAsync("EXEC SP_DeleteDepartmentById {0}", id);
                 if (result > 0)
                     return Ok();
                 return NotFound();

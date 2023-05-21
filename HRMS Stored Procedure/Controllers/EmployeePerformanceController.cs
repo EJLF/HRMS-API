@@ -36,7 +36,7 @@ namespace HRMS_Stored_Procedure.Controllers
                     new SqlParameter("@Status", Status),
                     new SqlParameter("@DeleteStatus", DeleteStatus)
                 };
-                var result = await _context.Database.ExecuteSqlRawAsync("EXEC AddEmployeePerformance @UserID, @ReviewBy, @About, @PerformanceReview, @DateReview, @Status, @DeleteStatus", parameters);
+                var result = await _context.Database.ExecuteSqlRawAsync("EXEC SP_AddEmployeePerformance @UserID, @ReviewBy, @About, @PerformanceReview, @DateReview, @Status, @DeleteStatus", parameters);
                 if (result > 0)
                     return Ok("Employee Performance Save Successful!");
                 return BadRequest("Can't Create Employee Performance");
@@ -51,7 +51,7 @@ namespace HRMS_Stored_Procedure.Controllers
         {
             try
             {
-                var employeePerformance = _context.EmployeePerformances.FromSqlRaw("EXEC GetEmployeePerformanceById {0}", No).AsEnumerable().FirstOrDefault();
+                var employeePerformance = _context.EmployeePerformances.FromSqlRaw("EXEC SP_GetEmployeePerformanceById {0}", No).AsEnumerable().FirstOrDefault();
                 if (employeePerformance == null)
                     return BadRequest("No Employee Performance Found");
 
@@ -87,7 +87,7 @@ namespace HRMS_Stored_Procedure.Controllers
         {
             try
             {
-                var employeePerformances = await _context.EmployeePerformances.FromSqlRaw("EXEC GetAllEmployeePerformance").ToListAsync();
+                var employeePerformances = await _context.EmployeePerformances.FromSqlRaw("EXEC SP_GetAllEmployeePerformance").ToListAsync();
 
                 var employeeIds = employeePerformances.Select(ep => ep.UserID).Distinct();
                 var employees = await _userManager.Users.Where(e => employeeIds.Contains(e.Id)).ToListAsync();
@@ -146,7 +146,7 @@ namespace HRMS_Stored_Procedure.Controllers
                     new SqlParameter("@Status", Status),
                     new SqlParameter("@DeleteStatus", DeleteStatus)
                 };
-                var result = await _context.Database.ExecuteSqlRawAsync("EXEC UpdateEmployeePerformance @No, @newUserID, @ReviewBy, @About, @PerformanceReview, @DateReview, @Status, @DeleteStatus", parameters);
+                var result = await _context.Database.ExecuteSqlRawAsync("EXEC SP_UpdateEmployeePerformance @No, @newUserID, @ReviewBy, @About, @PerformanceReview, @DateReview, @Status, @DeleteStatus", parameters);
                 if (result > 0)
                     return Ok();
                 return NotFound();
@@ -161,7 +161,7 @@ namespace HRMS_Stored_Procedure.Controllers
         {
             try
             {
-                var result = await _context.Database.ExecuteSqlRawAsync("EXEC DeleteEmployeePerformanceById {0}", No);
+                var result = await _context.Database.ExecuteSqlRawAsync("EXEC SP_DeleteEmployeePerformanceById {0}", No);
                 if (result > 0)
                     return Ok();
                 return NotFound();

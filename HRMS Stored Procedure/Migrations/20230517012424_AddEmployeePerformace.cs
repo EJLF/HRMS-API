@@ -9,7 +9,7 @@ namespace HRMS_Stored_Procedure.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            var sp = @"CREATE PROCEDURE AddEmployeePerformance
+            var sp = @"CREATE PROCEDURE SP_AddEmployeePerformance
                             @UserID VARCHAR(100),
                             @ReviewBy VARCHAR(100),
                             @About VARCHAR(100),
@@ -27,7 +27,7 @@ namespace HRMS_Stored_Procedure.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            var sp = @"DROP PROCEDURE AddEmployeePerformance";
+            var sp = @"DROP PROCEDURE SP_AddEmployeePerformance";
             migrationBuilder.Sql(sp);
         }
     }

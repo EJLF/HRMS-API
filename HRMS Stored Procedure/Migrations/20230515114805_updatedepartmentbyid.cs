@@ -8,7 +8,7 @@ namespace HRMS_Stored_Procedure.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            var sp = @"CREATE PROCEDURE UpdateDepartmentById
+            var sp = @"CREATE PROCEDURE SP_UpdateDepartmentById
                         @DeptId INT,
                         @NewDeptName VARCHAR(100)
                     AS
@@ -22,7 +22,7 @@ namespace HRMS_Stored_Procedure.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            var sp = @"DROP PROCEDURE UpdateDepartmentById";
+            var sp = @"DROP PROCEDURE SP_UpdateDepartmentById";
             migrationBuilder.Sql(sp);
         }
     }
